@@ -1,14 +1,14 @@
-#Cobbler 说明文档
+# Cobbler 说明文档
 
 > V1.0 本文档为个人学习用途不作为生产使用
 
-##功能简介
+## 功能简介
 
 - PXE自动安装操作系统
     - Linux
     - Windows
 
-##安装环境
+## 安装环境
 
 - Server
     - vmware VM 1Core/1G/100G

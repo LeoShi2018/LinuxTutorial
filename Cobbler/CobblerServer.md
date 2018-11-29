@@ -49,7 +49,7 @@ systemctl start httpd cobblerd xinetd rsyncd && \
 systemctl enable httpd cobblerd xinetd rsyncd
 </pre>
 
-![Active](../images/images001.png)
+![Active](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Cobbler/images/images001.png)
 
 ##7.Cobbler check
 

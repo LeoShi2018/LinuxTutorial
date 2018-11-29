@@ -18,14 +18,14 @@ yum -y update
 </pre>
 
 
-##3.Install Package
+## 3.Install Package
 
 <pre>
 yum install -y httpd dhcp tftp cobbler cobbler-web pykickstart xinetd
 </pre>
 
 
-##4.Disable SElinux
+## 4.Disable SElinux
 
 <pre>
 setenforce 0 && sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' \
@@ -33,7 +33,7 @@ setenforce 0 && sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g
 </pre>
 
 
-##5.Open Ports
+## 5.Open Ports
 
 <pre>
 firewall-cmd --add-port=80/tcp --permanent
@@ -46,7 +46,7 @@ firewall-cmd --reload
 </pre>
 
 
-##6.Start apache cobbler Xinetd
+## 6.Start apache cobbler Xinetd
 
 <pre>
 systemctl start httpd cobblerd xinetd rsyncd && \
@@ -56,7 +56,7 @@ systemctl enable httpd cobblerd xinetd rsyncd
 ![Active](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Cobbler/images/images001.png)
 
 
-##7.Cobbler check
+## 7.Cobbler check
 
 <pre>
 [root@cobbler ~]# cobbler check
@@ -75,7 +75,7 @@ Restart cobblerd and then run 'cobbler sync' to apply changes.
 </pre>
 
 
-####One by one processing problem
+#### One by one processing problem
 
 1.Edit /etc/cobbler/settings
 <pre>
@@ -134,7 +134,7 @@ default_password_crypted: "$1$o4Xpg+kr$WnqCduSuanQBK6Fu3CxNk0"
 </pre>
 
 
-##8.Restart cobbler service and recheck it.
+## 8.Restart cobbler service and recheck it.
 <pre>
 systemctl restart cobblerd
 cobbler check
@@ -150,7 +150,7 @@ Restart cobblerd and then run 'cobbler sync' to apply changes.
 These two error ignore
 
 
-##9.Modify dhcp.template
+## 9.Modify dhcp.template
 
 <pre>
 sed -i 's%manage_dhcp: 0%manage_dhcp: 1%g' /etc/cobbler/settings
@@ -165,7 +165,7 @@ sed -i "25 i\ range 10.1.0.100 10.1.0.200; " /etc/cobbler/dhcp.template
 </pre>
 
 
-##10.cobbler sync
+## 10.cobbler sync
 
 This command must be executed after each modification
 
@@ -203,14 +203,14 @@ running shell triggers from /var/lib/cobbler/triggers/change/*
 </pre>
 
 
-##11.Mount your ISO
+## 11.Mount your ISO
 
 CentOS-7-x86_64-Minimal-1804.iso
 
     mount /dev/cdrom /mnt
 
 
-##12.Import the images
+## 12.Import the images
 <pre>
 cobbler import --arch=x86_64 --path=/mnt --name=CentOS7.5
 
@@ -238,7 +238,7 @@ This is the path to the image.
 > /var/www/cobbler/ks_mirror/CentOS7.5-x86_64
 
 
-##13.Modify the kickstart file
+## 13.Modify the kickstart file
 <pre>
 cat <<'EOF' > /var/lib/cobbler/kickstarts/CentOS7.5-x86_64.ks
 #Kickstart Configurator for cobbler by LeoShi
@@ -334,21 +334,21 @@ This is the path to  default kickstart
 >  /var/lib/cobbler/kickstarts/
 
 
-##14.Create cobbler profile
+## 14.Create cobbler profile
 <pre>
 cobbler profile edit --name=CentOS7.5-x86_64 --kickstart=/var/lib/cobbler/kickstarts/CentOS7.5-x86_64.ks
 </pre>
 
 
-##15.Modify Network device name to eth0
+## 15.Modify Network device name to eth0
     cobbler profile edit --name=CentOS7.5-x86_64 --kopts='net.ifnames=0 biosdevname=0'
     
 
-####Don't forget cobbler sync
+#### Don't forget cobbler sync
     cobbler sync
 
 
-##16.Check your config
+## 16.Check your config
 <pre>
 cobbler profile report CentOS7.5-x86_64
 Name                           : CentOS7.5-x86_64

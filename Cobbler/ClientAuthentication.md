@@ -2,11 +2,11 @@
 
 ### Select Install System
 
-![PXE Menu]()
+![PXE Menu](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Cobbler/images/images002.png)
 
-![003]()
+![003](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Cobbler/images/images003.png)
 
 ### Network device name eth0
 
-![004]()
+![004](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Cobbler/images/images004.png)
 

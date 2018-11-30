@@ -17,6 +17,7 @@
     - Hostname: cobbler
     - Gateway:10.1.0.2
     - DNS:10.1.0.2
+    - Cobbler 2.8.3
     
 - Client
     - vmware VM 1Core/2G/20G/PXE

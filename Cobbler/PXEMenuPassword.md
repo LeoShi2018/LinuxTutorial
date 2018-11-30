@@ -51,4 +51,4 @@ vi /etc/cobbler/pxe/pxeprofile.template
 
 #### 4. Don't forget Cobbler Sync
 
-![PXE Password]()
+![PXE Password](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Cobbler/images/images005.png)

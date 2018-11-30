@@ -99,10 +99,10 @@ sed -i "$tftp_disable_conf i\ disable = no" /etc/xinetd.d/tftp
 
 
 4.Run cobbler get-loaders
-
-    cobbler get-loaders
-
-<pre>task started: 2018-11-30_063912_get_loaders
+<pre>
+cobbler get-loaders
+----------
+task started: 2018-11-30_063912_get_loaders
 task started (id=Download Bootloader Content, time=Fri Nov 30 06:39:12 2018)
 downloading https://cobbler.github.io/loaders/README to /var/lib/cobbler/loaders/README
 downloading https://cobbler.github.io/loaders/COPYING.elilo to /var/lib/cobbler/loaders/COPYING.elilo
@@ -138,7 +138,7 @@ default_password_crypted: "$1$o4Xpg+kr$WnqCduSuanQBK6Fu3CxNk0"
 <pre>
 systemctl restart cobblerd
 cobbler check
-
+----------
 The following are potential configuration items that you may want to fix:
 
 1 : debmirror package is not installed, it will be required to manage debian deployments and repositories
@@ -172,7 +172,7 @@ This command must be executed after each modification
 <pre>
 systemctl restart cobblerd
 cobbler sync
-
+----------
 task started: 2018-11-30_065106_sync
 task started (id=Sync, time=Fri Nov 30 06:51:06 2018)
 running pre-sync triggers
@@ -213,7 +213,7 @@ CentOS-7-x86_64-Minimal-1804.iso
 ## 12.Import the images
 <pre>
 cobbler import --arch=x86_64 --path=/mnt --name=CentOS7.5
-
+----------
 task started: 2018-11-30_065920_import
 task started (id=Media import, time=Fri Nov 30 06:59:20 2018)
 Found a candidate signature: breed=redhat, version=rhel6

@@ -39,7 +39,6 @@ gpgcheck=1
 EOF
 curl -o /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX
 curl -o /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591 https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX-A14FE591
-rpm --import /etc/pki/rpm-gpg/RPM*
 </pre>
 
 > CentOS 7.5 repo
@@ -55,6 +54,7 @@ curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 </pre>
 
 <pre>
+rpm --import /etc/pki/rpm-gpg/RPM*
 yum clean all && yum repolist
 ----------
     Loaded plugins: fastestmirror

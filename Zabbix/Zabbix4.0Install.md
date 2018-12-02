@@ -15,6 +15,7 @@
 > Bakckup local repo files 
 
 <pre>
+/etc/yum.repos.d/
 for var in `ls`; do mv -f "$var" `echo "$var" |sed 's/repo$/repo.bak/'`; done
 </pre>
 

@@ -37,6 +37,8 @@ enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
 gpgcheck=1
 EOF
+curl -o /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX
+curl -o /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591 https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX-A14FE591
 </pre>
 
 > CentOS 7.5 repo

@@ -1,4 +1,4 @@
-# Error: rpmdb open failed
+# Error: yum rpmdb open failed
 
 <pre>
 # yum install -y lrzsz

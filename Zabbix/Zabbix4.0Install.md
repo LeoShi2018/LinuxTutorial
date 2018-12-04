@@ -15,13 +15,13 @@
 > Bakckup local repo files 
 
 <pre>
-/etc/yum.repos.d/
-for var in `ls`; do mv -f "$var" `echo "$var" |sed 's/repo$/repo.bak/'`; done
+# cd /etc/yum.repos.d/
+# for var in `ls`; do mv -f "$var" `echo "$var" |sed 's/repo$/repo.bak/'`; done
 </pre>
 
 > Zabbix 4.0 repo
 <pre>
-cat <<'EOF' > /etc/yum.repos.d/zabbix.repo
+# cat <<'EOF' > /etc/yum.repos.d/zabbix.repo
 [root@localhost yum.repos.d]# cat zabbix.repo 
 [zabbix]
 name=Zabbix Official Repository - $basearch
@@ -37,25 +37,25 @@ enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
 gpgcheck=1
 EOF
-curl -o /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX
-curl -o /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591 https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX-A14FE591
+# curl -o /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX
+# curl -o /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591 https://mirrors.aliyun.com/zabbix/RPM-GPG-KEY-ZABBIX-A14FE591
 </pre>
 
 > CentOS 7.5 repo
 
 <pre>
-curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+# curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 </pre>
 
 > EPEL 7
 
 <pre>
-curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+# curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 </pre>
 
 <pre>
-rpm --import /etc/pki/rpm-gpg/RPM*
-yum clean all && yum repolist
+# rpm --import /etc/pki/rpm-gpg/RPM*
+# yum clean all && yum repolist
 ----------
     Loaded plugins: fastestmirror
     Cleaning repos: base epel extras updates zabbix zabbix-non-supported
@@ -96,72 +96,76 @@ yum clean all && yum repolist
 
 ## 2. Update system
 
-    yum -y update
+    # yum -y update
 
 ## 3. Disable SElinux
 
 <pre>
-setenforce 0 && sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+# setenforce 0 && sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 </pre>
 
-
-## 4.Open Ports
+## 4. Sync time
+<pre>
+# yum install -y ntpdate net-tools yum-utils
+# ntpdate times.aliyun.com
+----------
+    4 Dec 09:15:57 ntpdate[19372]: step time server 120.25.115.19 offset 29708.538151 sec
+</pre>
+## 5. Open Ports
 
 - Zabbix Web use port 80
 - Zabbix Server use port 10051 
 
 <pre>
-firewall-cmd --add-port=80/tcp --permanent
-firewall-cmd --add-port=10051/tcp --permanent
-firewall-cmd --reload
+# firewall-cmd --add-port=80/tcp --permanent
+# firewall-cmd --add-port=10051/tcp --permanent
+# firewall-cmd --reload
 </pre>
 
-## 5.Install Package
-    yum install -y zabbix-server-mysql zabbix-web-mysql zabbix-agent mariadb mariadb-server net-tools
+## 6. Install Package
+    # yum install -y zabbix-server-mysql zabbix-web-mysql zabbix-agent mariadb mariadb-server
 
-## 6.Change Zabbix time zone
-    sed -i 's%# php_value date.timezone Europe/Riga%php_value date.timezone Asia/Shanghai%g' /etc/httpd/conf.d/zabbix.conf
+## 7. Change Zabbix time zone
+    # sed -i 's%# php_value date.timezone Europe/Riga%php_value date.timezone Asia/Shanghai%g' /etc/httpd/conf.d/zabbix.conf
     
 <pre>
-cat /etc/httpd/conf.d/zabbix.conf | grep timezone
+# cat /etc/httpd/conf.d/zabbix.conf | grep timezone
 ----------
     php_value date.timezone Asia/Shanghai
 </pre>
 
-## 7.Start mariadb
-    systemctl start mariadb && systemctl enable mariadb
+## 8. Start mariadb
+    # systemctl start mariadb && systemctl enable mariadb
 
-## 8.Config mariadb
+## 9. Config mariadb
 
 <pre>
-mysql -u root
+# mysql -u root
 ----------
     MariaDB [(none)]>create database zabbix character set utf8 collate utf8_bin;
     MariaDB [(none)]>grant all privileges on zabbix.* to zabbix@localhost identified by 'password';
     MariaDB [(none)]>quit;
 </pre>
 
-## 9.Set zabbix db
+## 10. Set zabbix db
 <pre>
-zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -ppassword zabbix
+# zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -ppassword zabbix
 </pre>
 
-## 10.Config zabbix server conf file
+## 11. Config zabbix server conf file
 <pre>
-sed -i 's%# DBPassword=%DBPassword=password%g' /etc/zabbix/zabbix_server.conf
-
-cat /etc/zabbix/zabbix_server.conf | grep DBPass
+# sed -i 's%# DBPassword=%DBPassword=password%g' /etc/zabbix/zabbix_server.conf
+# cat /etc/zabbix/zabbix_server.conf | grep DBPass
 ----------
     ### Option: DBPassword
     DBPassword=password
 </pre>
 
-## 11.Start zabbix server and apache
+## 12. Start zabbix server and apache
 
 <pre>
-systemctl start zabbix-server httpd && systemctl enable zabbix-server httpd
-
-systemctl status zabbix-server httpd | grep active
+# systemctl start zabbix-server httpd && systemctl enable zabbix-server httpd
+# systemctl status zabbix-server httpd | grep active
 ----------
     Active: active (running) since Sun 2018-12-02 08:41:47 CST; 15s ago
     Active: active (running) since Sun 2018-12-02 08:41:47 CST; 15s ago
@@ -170,7 +174,9 @@ systemctl status zabbix-server httpd | grep active
 
 ## 12.GUI setup
 
-    http://10.1.0.161/zabbix/setup.php
+> Use Chrome or Firefox browse this web ：
+
+http://10.1.0.161/zabbix/setup.php
 
 ![Zabbix web](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Zabbix/images/image001.png)
 

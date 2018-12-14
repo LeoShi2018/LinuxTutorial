@@ -17,3 +17,7 @@
 ## sed
 
 - [匹配行上一行、下一行插入](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Tools/Sed.md)
+
+## hostnamectl
+
+- [永久修改计算机名](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Tools/Hostnamectl.md)

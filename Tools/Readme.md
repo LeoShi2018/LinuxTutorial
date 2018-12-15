@@ -21,3 +21,7 @@
 ## hostnamectl
 
 - [永久修改计算机名](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Tools/Hostnamectl.md)
+
+## 命令补全
+
+- [命令补全](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Tools/命令补全.md)

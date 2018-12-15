@@ -25,3 +25,7 @@
 ## 命令补全
 
 - [命令补全](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Tools/命令补全.md)
+
+## 用户登陆脚本
+
+- [用户登陆脚本](https://github.com/LeoShi2018/LinuxTutorial/blob/master/Tools/用户登陆脚本.md)

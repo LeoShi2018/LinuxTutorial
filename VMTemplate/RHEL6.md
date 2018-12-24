@@ -43,5 +43,9 @@
     Your VM is poweroff now. This system is your template.
 </pre>
 
-
+> OR
+<pre>
+# touch /.unconfigured
+# init 0
+</pre>
 ## END

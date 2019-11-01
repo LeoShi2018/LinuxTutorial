@@ -80,6 +80,11 @@ EOF
 
 ````
 
+## 3. 删除匹配行
+
+````
+(base) [root@localhost ~]# sed -i '/^c/d' ./.jupyter/jupyter_notebook_config.py
+````
 
 
 ## END
